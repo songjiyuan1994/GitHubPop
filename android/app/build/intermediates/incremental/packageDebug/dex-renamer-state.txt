@@ -1,0 +1,4 @@
+#Mon Mar 05 17:12:40 CST 2018
+base.0=/Users/apple/Documents/rn/GitHubPop/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/apple/Documents/rn/GitHubPop/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
