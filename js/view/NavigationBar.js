@@ -9,10 +9,14 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-const NAV_BAR_HEIGHT_NADROID = 50;
+const NAV_BAR_HEIGHT_ANDROID = 50;
 const NAV_BAR_HEIGHT_IOS = 44;
 const STATUS_BAR_HEIGHT = 20;
-
+const StatusBarShape = {
+    backgroundColor: PropTypes.string,
+    barStyle: PropTypes.oneOf(['default', 'light-content', 'dark-content']),
+    hidden: PropTypes.bool
+};
 export default class NavigationBar extends Component<Props> {
     static propTypes = {
         style: View.propTypes.style,
@@ -21,34 +25,45 @@ export default class NavigationBar extends Component<Props> {
         hide: PropTypes.bool,
         leftButton: PropTypes.element,
         rightButton: PropTypes.element,
+        statusBar: PropTypes.shape(StatusBarShape),
+    };
+    static defaultProps = {
+        statusBar: {
+            barStyle: 'light-content',
+            hidden: false
+        }
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            title: '标题',
             hide: false
         };
     }
 
     render() {
+        let status = <View style={[navStyle.statusBar, this.props.statusBar]}>
+            <StatusBar {...this.props.statusBar}/>
+        </View>;
         let titleView = this.props.titleView ? this.props.titleView :
-            <Text style={navBar.title}>{this.props.title}</Text>;
-        let content = <View style={navBar.navBar}>
+            <Text style={navStyle.title}>{this.props.title}</Text>;
+        let content = <View style={navStyle.navBar}>
             {this.props.leftButton}
-            <View style={navBar.titleViewContainer}>
+            <View style={navStyle.titleViewContainer}>
                 {titleView}
             </View>
             {this.props.rightButton}
         </View>;
         return (
-            <View style={navBar.container}>
+            <View style={[navStyle.container, this.props.style]}>
+                {status}
                 {content}
             </View>
         );
     }
 }
-const navBar = StyleSheet.create({
+const navStyle = StyleSheet.create({
     container: {
         backgroundColor: 'gray'
     },
@@ -56,11 +71,12 @@ const navBar = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         height: Platform.OS === 'ios' ?
-            NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_NADROID,
+            NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_ANDROID,
         flexDirection: 'row'
     },
     title: {
-        fontSize: 20
+        fontSize: 20,
+        color: '#fff'
     },
     titleViewContainer: {
         justifyContent: 'center',
@@ -70,5 +86,8 @@ const navBar = StyleSheet.create({
         right: 40,
         top: 0,
         bottom: 0
+    },
+    statusBar: {
+        height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT : 0
     }
 });
