@@ -29,8 +29,7 @@ export default class DetailScreen extends Component<Props> {
                             <Image source={require('../../res/images/ic_arrow_back_white_36pt.png')}
                             />
                         </TouchableOpacity>
-                    }
-                />
+                    }/>
                 <Text style={{fontSize: 20}}>detail</Text>
             </View>
         );
