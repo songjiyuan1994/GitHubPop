@@ -4,7 +4,8 @@ import {
     View,
     Text,
     Button,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import DetailScreen from './DetailScreen'
 import {StackNavigator} from "react-navigation";
@@ -167,20 +168,27 @@ export default class PopularScreen extends Component<Props> {
         const {navigate} = this.props.navigation;
         return (
             <View style={{flex: 1}}>
-                <FlatList
-                    data={data.result}
-                    renderItem={({item}) => this.renderRow(item)}
-                    ListFooterComponent={() =>
-                        <Text style={{fontSize: 25, backgroundColor: 'red'}}>Footer</Text>}
-                    ListHeaderComponent={() =>
-                        <Text style={{fontSize: 25, backgroundColor: 'red'}}>Header</Text>}
-                    ItemSeparatorComponent={() =>
-                        <View style={{height: 0.5, backgroundColor: 'yellow'}}/>}
-                    onRefresh={this.refreshing}
-                    refreshing={this.state.isLoading}
-                />
+                <TouchableOpacity
+                    style={styles.touchable}
+                    onPress={() => this.props.navigation.navigate('Fetch')}>
+                    <Text style={styles.text}
+                    >Fetch</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    touchable: {
+        borderWidth: 1,
+        margin: 5,
+        borderColor: 'blue',
+        backgroundColor:'gray'
+    },
+    text: {
+        fontSize: 20,
+        color: 'blue',
+        textAlign: 'center'
+    }
+});
 

@@ -12,6 +12,7 @@ import FavoriteScreen from './screens/FavoriteScreen';
 import MineScreen from './screens/MineScreen';
 import TabBarItem from './view/TabBarItem';
 import DetailScreen from './screens/DetailScreen';
+import FetchTest from "./test/FetchTest";
 
 class App extends Component<Props> {
     constructor(props) {
@@ -111,6 +112,12 @@ const root = StackNavigator({
     // 对应界面名称
     Detail: {
         screen: DetailScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Fetch: {
+        screen: FetchTest,
         navigationOptions: {
             header: null
         }
