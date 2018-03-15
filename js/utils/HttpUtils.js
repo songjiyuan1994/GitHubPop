@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-import {
-    StyleSheet,
-    View,
-    Text
-} from 'react-native';
 
 export default class HttpUtils extends Component<Props> {
     static get(url) {

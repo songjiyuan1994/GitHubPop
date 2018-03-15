@@ -3,18 +3,15 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity,
-    Image,
     FlatList
 } from 'react-native';
-import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
-import NavigationBar from '../view/NavigationBar'
-import HttpUtils from '../utils/HttpUtils';
 import DataRepository from "../dao/DataRepository";
+import * as style from "../../res/styles/GlobalStyles";
+import RepositoryCell from '../view/RepositoryCell'
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
-export default class FetchTest extends Component<Props> {
+export default class PopularTab extends Component<Props> {
     constructor(props) {
         super(props);
         this.dataRepository = new DataRepository();
@@ -28,7 +25,7 @@ export default class FetchTest extends Component<Props> {
     }
 
     loadData() {
-        let url = URL + "android" + QUERY_STR;
+        let url = URL + this.props.tabLabel + QUERY_STR;
         this.dataRepository.fetchNetRepository(url)
             .then(result => {
                 this.setState({
@@ -44,12 +41,12 @@ export default class FetchTest extends Component<Props> {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={style.container}>
                 <FlatList
                     data={this.state.result}
-                    renderItem={({item}) => <Text style={{fontSize: 20, Color: 'red'}}>{item.id}</Text>}
+                    renderItem={({item}) => <RepositoryCell data={item}/>}
                 />
-            </View>)
-
+            </View>
+        );
     }
 }

@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation';
+import {StackNavigator, TabNavigator, SwitchNavigator} from 'react-navigation';
 import PopularScreen from './screens/PopularScreen';
 import TrendingScreen from './screens/TrendingScreen';
 import FavoriteScreen from './screens/FavoriteScreen';
@@ -13,6 +13,7 @@ import MineScreen from './screens/MineScreen';
 import TabBarItem from './view/TabBarItem';
 import DetailScreen from './screens/DetailScreen';
 import FetchTest from "./test/FetchTest";
+import SplashScreen from "./screens/SplashScreen";
 
 class App extends Component<Props> {
     constructor(props) {
@@ -78,9 +79,9 @@ const MainScreenNavigator = TabNavigator({
         }
     },
 }, {
-    animationEnabled: true, // 切换页面时不显示动画
+    animationEnabled: false, // 切换页面时不显示动画
     tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
-    swipeEnabled: true, // 禁止左右滑动
+    swipeEnabled: false, // 左右滑动
     // initialRouteName: PopularScreen,
     backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
     tabBarOptions: {
@@ -125,4 +126,9 @@ const root = StackNavigator({
 }, {
     headerMode: 'screen',
 });
-export default root;
+export default SwitchNavigator({
+    Welcome: SplashScreen,
+    App: root
+}, {
+    initialRouteName: 'Welcome'
+});

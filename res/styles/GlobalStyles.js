@@ -8,6 +8,9 @@ import {
 
 const {height, width} = Dimensions.get('window');
 module.exports = {
+    container: {
+        flex: 1,
+    },
     //
     navigation_bar_style: {
         backgroundColor: 'gray'
