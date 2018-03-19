@@ -2,11 +2,6 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text,
-    TextInput,
-    Button,
-    FlatList,
-    TouchableOpacity
 } from 'react-native';
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import NavigationBar from "../view/NavigationBar";
@@ -23,10 +18,12 @@ export default class PopularScreen extends Component<Props> {
             <View style={styles.container}>
                 <NavigationBar
                     title='Popular'
-                    style={{
-                        backgroundColor: '#ee6363'
-                    }}/>
+                    style={styles.navbar}/>
                 <ScrollableTabView
+                    tabBarBackgroundColor="#ee6363"
+                    tabBarInactiveTextColor="mintcream"
+                    tabBarActiveTextColor='white'
+                    tabBarUnderlineStyle={styles.underline}
                     renderTabBar={() => <ScrollableTabBar/>}>
                     <PopularTab tabLabel="Java"/>
                     <PopularTab tabLabel="iOS"/>
@@ -40,6 +37,13 @@ export default class PopularScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    navbar: {
+        backgroundColor: '#ee6363'
+    },
+    underline: {
+        backgroundColor: '#e7e7e7',
+        height: 2
     }
 });
 

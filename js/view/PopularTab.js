@@ -17,6 +17,7 @@ export default class PopularTab extends Component<Props> {
         this.dataRepository = new DataRepository();
         this.state = {
             result: '',
+            isRefreshing: false,
         }
     }
 
@@ -25,17 +26,20 @@ export default class PopularTab extends Component<Props> {
     }
 
     loadData() {
+        this.setState({isRefreshing: true});
         let url = URL + this.props.tabLabel + QUERY_STR;
         this.dataRepository.fetchNetRepository(url)
             .then(result => {
                 this.setState({
-                    result: result.items
+                    result: result.items,
+                    isRefreshing: false
                 });
             })
             .catch(error => {
                 this.setState({
-                    result: JSON.stringify(error)
+                    isRefreshing: false
                 });
+                console.error(error)
             })
     }
 
@@ -44,9 +48,25 @@ export default class PopularTab extends Component<Props> {
             <View style={style.container}>
                 <FlatList
                     data={this.state.result}
+                    ListHeaderComponent={() => <View style={styles.header}/>}
+                    ListFooterComponent={() => <Text style={styles.footer}>
+                        {this.state.isRefreshing ? '' : 'No More'}</Text>}
                     renderItem={({item}) => <RepositoryCell data={item}/>}
+                    onRefresh={() => this.loadData()}
+                    refreshing={this.state.isRefreshing}
                 />
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    header: {
+        height: 5
+    },
+    footer: {
+        fontSize: 13,
+        padding: 10,
+        color: '#999999',
+        textAlign: 'center'
+    }
+});
